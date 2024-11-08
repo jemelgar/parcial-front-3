@@ -1,10 +1,30 @@
+import { useState } from 'react';
+import Form from './components/Form';
+import Card from './Card';
+
 function App() {
-  //Aqui deberias agregar los estados y los handlers para los inputs
+  const [bookData, setBookData] = useState(null);
+
+  const handleFormSubmit = (data) => {
+    setBookData(data);
+  };
+
+  const handleNewSearch = () => {
+    setBookData(null);
+  };
 
   return (
-    <div className="App">
-      <h1>Elige un color</h1>
-      <form>{/* aqui deberias escribir tu codigo */}</form>
+    <div className="app-container">
+      {!bookData ? (
+        <Form onSubmit={handleFormSubmit} />
+      ) : (
+        <Card
+          title={bookData.title}
+          author={bookData.author}
+          inStock={true}
+          onNewSearch={handleNewSearch}
+        />
+      )}
     </div>
   );
 }
